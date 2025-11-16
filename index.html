@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsMinute - Breaking News & Latest Updates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffd700;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .top-bar {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-time {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #ffd700;
+        }
+
+        .social-links a {
+            color: #ffd700;
+            margin-left: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ffed4e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            padding: 15px 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffed4e;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .search-btn {
+            background: #ffd700;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #000;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
+        }
+
+        /* Breaking News Banner */
+        .breaking-news {
+            background: #ffd700;
+            color: #000;
+            padding: 15px 0;
+            overflow: hidden;
+            border-bottom: 3px solid #000;
+        }
+
+        .breaking-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            animation: scroll 30s linear infinite;
+        }
+
+        .breaking-tag {
+            background: #000;
+            color: #ffd700;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .breaking-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .breaking-highlight {
+            background: #000;
+            color: #ffd700;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0;
+            background: white;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .featured-story {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 2px solid #ffd700;
+        }
+
+        .featured-story:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .featured-story img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .featured-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            padding: 40px 30px;
+            color: white;
+        }
+
+        .category-badge {
+            background: #ffd700;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .featured-overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .side-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-story {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+        }
+
+        .side-story:hover {
+            transform: translateX(5px);
+            border-color: #ffd700;
+        }
+
+        .side-story img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .side-story-content {
+            padding: 20px;
+        }
+
+        .side-story h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .side-story .meta-info {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #ffd700;
+            position: relative;
+            color: #000;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: #000;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .article-content p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* Tech Section */
+        .tech-section {
+            background: #000;
+            color: white;
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+
+        .tech-section .section-title {
+            color: #ffd700;
+            border-bottom-color: #ffd700;
+        }
+
+        .tech-section .section-title::after {
+            background: #ffd700;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .tech-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid #333;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .tech-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .tech-card-content {
+            padding: 20px;
+        }
+
+        .tech-card-content h3 {
+            color: #ffd700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-card-content p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .tech-card-content .meta-info {
+            color: #999;
+        }
+
+        /* Opinion Section */
+        .opinion-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        }
+
+        .opinion-section .section-title {
+            border-bottom-color: #000;
+        }
+
+        .opinion-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .opinion-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left: 5px solid #000;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .opinion-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+        }
+
+        .author-details h4 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .author-details span {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 60px 0;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .video-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+            transition: all 0.3s;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 15px;
+            background: white;
+        }
+
+        .video-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid #ffd700;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .trending-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .trending-item:hover {
+            background: #fffdf0;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .trending-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .trending-content .meta-info {
+            font-size: 0.8rem;
+        }
+
+        .view-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #ffd700;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .newsletter {
+            text-align: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: #ffd700;
+            border-top-color: #ffd700;
+        }
+
+        .newsletter .widget-title {
+            color: #ffd700;
+        }
+
+        .newsletter p {
+            color: #ccc;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .newsletter button {
+            width: 100%;
+            padding: 12px;
+            background: #ffd700;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter button:hover {
+            transform: scale(1.05);
+            background: #ffed4e;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #ffd700;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+            border-top: 4px solid #ffd700;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+
+        .footer-section p {
+            color: #999;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-grid,
+            .content-grid,
+            .articles-grid,
+            .tech-grid,
+            .opinion-grid,
+            .video-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .featured-overlay h2 {
+                font-size: 1.5rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .breaking-content {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="date-time">
+                    <span id="current-date">Sunday, November 16, 2025</span>
+                    <span>|</span>
+                    <span id="current-time">12:00 PM</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="Twitter">Twitter</a>
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        
+        <nav>
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">NewsMinute</div>
+                    <ul class="nav-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#politics">Politics</a></li>
+                        <li><a href="#business">Business</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#sports">Sports</a></li>
+                        <li><a href="#entertainment">Entertainment</a></li>
+                        <li><a href="#opinion">Opinion</a></li>
+                        <li><button class="search-btn">Search</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breaking-news">
+        <div class="container">
+            <div class="breaking-content">
+                <span class="breaking-tag">🔴 BREAKING</span>
+                <div class="breaking-item">
+                    <span class="breaking-highlight breaking-tag">URGENT</span>
+                    <span>Major tech breakthrough: Quantum computer solves impossible equation in seconds</span>
+                </div>
+                <span>•</span>
+                <div class="breaking-item">
+                    <span class="breaking-highlight breaking-tag">JUST IN</span>
+                    <span>Global markets surge 5% following surprise economic data</span>
+                </div>
+                <span>•</span>
+                <div class="breaking-item">
+                    <span class="breaking-highlight breaking-tag">DEVELOPING</span>
+                    <span>Historic climate agreement reached by 195 nations</span>
+                </div>
+                <span>•</span>
+                <div class="breaking-item">
+                    <span class="breaking-highlight breaking-tag">LIVE</span>
+                    <span>Space agency announces manned mission to Mars for 2027</span>
+                </div>
+                <span>•</span>
+                <div class="breaking-item">
+                    <span class="breaking-highlight breaking-tag">UPDATE</span>
+                    <span>Revolutionary medical treatment approved for widespread use</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="featured-story">
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800" alt="Featured News">
+                    <div class="featured-overlay">
+                        <span class="category-badge">WORLD NEWS</span>
+                        <h2>Global Leaders Convene for Historic Climate Agreement</h2>
+                        <div class="meta-info">
+                            <span>By Sarah Johnson</span>
+                            <span>5 mins ago</span>
+                            <span>🔥 15.2k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-stories">
+                    <div class="side-story">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400" alt="Tech News">
+                        <div class="side-story-content">
+                            <span class="category-badge">TECHNOLOGY</span>
+                            <h3>AI Revolution: New Model Surpasses Human Performance in Medical Diagnosis</h3>
+                            <div class="meta-info">
+                                <span>15 mins ago</span>
+                                <span>• 8.5k views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-story">
+                        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=400" alt="Business News">
+                        <div class="side-story-content">
+                            <span class="category-badge">BUSINESS</span>
+                            <h3>Stock Markets Hit Record Highs Amid Economic Recovery Signals</h3>
+                            <div class="meta-info">
+                                <span>30 mins ago</span>
+                                <span>• 6.2k views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="side-story">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400" alt="Politics News">
+                        <div class="side-story-content">
+                            <span class="category-badge">POLITICS</span>
+                            <h3>New Infrastructure Bill Promises $2 Trillion Investment</h3>
+                            <div class="meta-info">
+                                <span>45 mins ago</span>
+                                <span>• 5.8k views</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-section">
+        <div class="container">
+            <h2 class="section-title">💻 Technology & Innovation</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" alt="AI Technology">
+                    <div class="tech-card-content">
+                        <span class="category-badge">AI & ML</span>
+                        <h3>ChatGPT Successor Launches with Multimodal Capabilities</h3>
+                        <p>Next-generation AI model can process text, images, video, and audio simultaneously, opening new possibilities for human-computer interaction...</p>
+                        <div class="meta-info">
+                            <span>Sarah Tech</span>
+                            <span>• 2 hours ago</span>
+                            <span>• 11.2k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400" alt="Quantum Computing">
+                    <div class="tech-card-content">
+                        <span class="category-badge">QUANTUM</span>
+                        <h3>IBM Unveils 1000-Qubit Quantum Processor</h3>
+                        <p>Major leap in quantum computing power enables solving complex problems previously thought impossible, revolutionizing drug discovery and cryptography...</p>
+                        <div class="meta-info">
+                            <span>Tech Insider</span>
+                            <span>• 3 hours ago</span>
+                            <span>• 9.7k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=400" alt="Robotics">
+                    <div class="tech-card-content">
+                        <span class="category-badge">ROBOTICS</span>
+                        <h3>Humanoid Robot Begins Hospital Trials</h3>
+                        <p>Advanced robotics system assists medical staff with patient care, demonstrating unprecedented dexterity and decision-making capabilities...</p>
+                        <div class="meta-info">
+                            <span>RoboNews</span>
+                            <span>• 4 hours ago</span>
+                            <span>• 8.3k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400" alt="5G Technology">
+                    <div class="tech-card-content">
+                        <span class="category-badge">CONNECTIVITY</span>
+                        <h3>6G Testing Achieves 1 Terabit Per Second</h3>
+                        <p>Next-generation wireless technology demonstrates speeds 100x faster than 5G, enabling real-time holographic communication and instant cloud computing...</p>
+                        <div class="meta-info">
+                            <span>Network Weekly</span>
+                            <span>• 5 hours ago</span>
+                            <span>• 7.9k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400" alt="VR Technology">
+                    <div class="tech-card-content">
+                        <span class="category-badge">VR/AR</span>
+                        <h3>Apple's Vision Pro 2 Sells Out in Minutes</h3>
+                        <p>Enhanced mixed reality headset features brain-computer interface, enabling thought-based navigation and unprecedented immersion levels...</p>
+                        <div class="meta-info">
+                            <span>Gadget Guide</span>
+                            <span>• 6 hours ago</span>
+                            <span>• 15.4k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400" alt="Blockchain">
+                    <div class="tech-card-content">
+                        <span class="category-badge">BLOCKCHAIN</span>
+                        <h3>Major Banks Adopt Blockchain for Instant Transfers</h3>
+                        <p>Global financial institutions implement distributed ledger technology, reducing transaction times from days to seconds while cutting costs by 90%...</p>
+                        <div class="meta-info">
+                            <span>CryptoDaily</span>
+                            <span>• 7 hours ago</span>
+                            <span>• 6.8k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400" alt="Cybersecurity">
+                    <div class="tech-card-content">
+                        <span class="category-badge">SECURITY</span>
+                        <h3>New Encryption Standard Deemed 'Unbreakable'</h3>
+                        <p>Revolutionary quantum-resistant encryption algorithm protects against both classical and quantum computer attacks, ensuring data security for decades...</p>
+                        <div class="meta-info">
+                            <span>SecureNet</span>
+                            <span>• 8 hours ago</span>
+                            <span>• 5.6k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" alt="Space Tech">
+                    <div class="tech-card-content">
+                        <span class="category-badge">SPACE TECH</span>
+                        <h3>SpaceX Starship Completes First Mars Cargo Mission</h3>
+                        <p>Historic achievement as unmanned spacecraft successfully delivers supplies to Mars base construction site, paving way for human colonization...</p>
+                        <div class="meta-info">
+                            <span>Space Today</span>
+                            <span>• 9 hours ago</span>
+                            <span>• 18.9k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" alt="Green Tech">
+                    <div class="tech-card-content">
+                        <span class="category-badge">GREEN TECH</span>
+                        <h3>Solar Panel Efficiency Reaches 50% Milestone</h3>
+                        <p>Breakthrough in photovoltaic technology doubles energy conversion rates, making solar power more affordable and accessible than ever before...</p>
+                        <div class="meta-info">
+                            <span>EcoTech News</span>
+                            <span>• 10 hours ago</span>
+                            <span>• 7.2k views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="opinion-section">
+        <div class="container">
+            <h2 class="section-title">💬 Opinion & Analysis</h2>
+            
+            <div class="opinion-grid">
+                <div class="opinion-card">
+                    <div class="author-info">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-details">
+                            <h4>Dr. James Davidson</h4>
+                            <span>Technology Columnist</span>
+                        </div>
+                    </div>
+                    <h3>Why AI Regulation Can't Wait Any Longer</h3>
+                    <p>As artificial intelligence systems become more powerful and ubiquitous, the need for comprehensive regulatory frameworks has never been more urgent. We stand at a crossroads...</p>
+                    <div class="meta-info">
+                        <span>5 min read</span>
+                        <span>• 3.2k views</span>
+                    </div>
+                </div>
+
+                <div class="opinion-card">
+                    <div class="author-info">
+                        <div class="author-avatar">ML</div>
+                        <div class="author-details">
+                            <h4>Maria Lopez</h4>
+                            <span>Economic Analyst</span>
+                        </div>
+                    </div>
+                    <h3>The Coming Economic Shift: Are We Prepared?</h3>
+                    <p>Global economic indicators point to a fundamental transformation in how we produce, consume, and distribute wealth. The question isn't if change will come, but whether we're ready...</p>
+                    <div class="meta-info">
+                        <span>7 min read</span>
+                        <span>• 4.1k views</span>
+                    </div>
+                </div>
+
+                <div class="opinion-card">
+                    <div class="author-info">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-details">
+                            <h4>Prof. Rachel Kim</h4>
+                            <span>Climate Scientist</span>
+                        </div>
+                    </div>
+                    <h3>Climate Action: Beyond the Headlines</h3>
+                    <p>While headlines celebrate carbon reduction pledges, the reality on the ground tells a more complex story. Here's what the data actually shows and why we need to act faster...</p>
+                    <div class="meta-info">
+                        <span>6 min read</span>
+                        <span>• 5.7k views</span>
+                    </div>
+                </div>
+
+                <div class="opinion-card">
+                    <div class="author-info">
+                        <div class="author-avatar">TB</div>
+                        <div class="author-details">
+                            <h4>Thomas Bradley</h4>
+                            <span>Political Correspondent</span>
+                        </div>
+                    </div>
+                    <h3>Democracy in the Digital Age: A Critical Analysis</h3>
+                    <p>The intersection of technology and politics has created unprecedented challenges for democratic institutions. From deepfakes to algorithmic manipulation, here's what's at stake...</p>
+                    <div class="meta-info">
+                        <span>8 min read</span>
+                        <span>• 2.9k views</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title">📺 Watch Now</h2>
+            
+            <div class="video-grid">
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Inside the World's Largest Tech Conference</h4>
+                        <div class="meta-info">
+                            <span>12:45</span>
+                            <span>• 25k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1516849677043-ef67c9557e16?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Climate Change: The Next 10 Years</h4>
+                        <div class="meta-info">
+                            <span>18:20</span>
+                            <span>• 32k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Exclusive: CEO Interview on Future Plans</h4>
+                        <div class="meta-info">
+                            <span>22:15</span>
+                            <span>• 41k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Breaking Down the AI Revolution</h4>
+                        <div class="meta-info">
+                            <span>15:30</span>
+                            <span>• 38k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Market Analysis: What Investors Need to Know</h4>
+                        <div class="meta-info">
+                            <span>10:45</span>
+                            <span>• 19k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <img src="https://images.unsplash.com/photo-1533749871411-5e21e14bcc7d?w=400" alt="Video Thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="video-info">
+                        <span class="category-badge">VIDEO</span>
+                        <h4>Sports Highlights: Championship Moments</h4>
+                        <div class="meta-info">
+                            <span>8:20</span>
+                            <span>• 45k views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-column">
+                    <h2 class="section-title">Latest Stories</h2>
+                    
+                    <div class="articles-grid">
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=400" alt="Tech Article">
+                            <div class="article-content">
+                                <span class="category-badge">TECH</span>
+                                <h3>The Future of Quantum Computing Is Here</h3>
+                                <p>Breakthrough discoveries in quantum technology promise to revolutionize computing as we know it, with applications spanning healthcare to climate modeling...</p>
+                                <div class="meta-info">
+                                    <span>Alex Chen</span>
+                                    <span>1 hour ago</span>
+                                    <span>4.2k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400" alt="Sports Article">
+                            <div class="article-content">
+                                <span class="category-badge">SPORTS</span>
+                                <h3>Championship Finals: Underdog Team Makes History</h3>
+                                <p>In an unexpected turn of events, the underdogs claimed victory in dramatic fashion, stunning fans worldwide and rewriting the record books...</p>
+                                <div class="meta-info">
+                                    <span>Mike Roberts</span>
+                                    <span>2 hours ago</span>
+                                    <span>7.8k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?w=400" alt="Health Article">
+                            <div class="article-content">
+                                <span class="category-badge">HEALTH</span>
+                                <h3>New Medical Treatment Shows Promising Results</h3>
+                                <p>Clinical trials reveal breakthrough in treating chronic conditions with minimal side effects, offering hope to millions of patients globally...</p>
+                                <div class="meta-info">
+                                    <span>Dr. Emily Watson</span>
+                                    <span>3 hours ago</span>
+                                    <span>5.1k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400" alt="Entertainment">
+                            <div class="article-content">
+                                <span class="category-badge">ENTERTAINMENT</span>
+                                <h3>Award-Winning Film Breaks Box Office Records</h3>
+                                <p>The critically acclaimed movie continues its impressive run, captivating audiences worldwide and earning praise from critics...</p>
+                                <div class="meta-info">
+                                    <span>Lisa Martinez</span>
+                                    <span>4 hours ago</span>
+                                    <span>3.9k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?w=400" alt="Environment">
+                            <div class="article-content">
+                                <span class="category-badge">ENVIRONMENT</span>
+                                <h3>Renewable Energy Reaches 60% of Global Grid</h3>
+                                <p>Major milestone achieved as clean energy sources dominate power generation, marking a turning point in the fight against climate change...</p>
+                                <div class="meta-info">
+                                    <span>David Green</span>
+                                    <span>5 hours ago</span>
+                                    <span>6.3k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Finance">
+                            <div class="article-content">
+                                <span class="category-badge">FINANCE</span>
+                                <h3>Cryptocurrency Market Experiences Major Shift</h3>
+                                <p>New regulations and institutional adoption drive significant changes in digital asset landscape, reshaping investment strategies...</p>
+                                <div class="meta-info">
+                                    <span>Jennifer Park</span>
+                                    <span>6 hours ago</span>
+                                    <span>8.7k views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">🔥 Trending Now</h3>
+                        
+                        <div class="trending-item">
+                            <span class="trending-number">1</span>
+                            <div class="trending-content">
+                                <h4>Electric Vehicle Sales Surge 300% This Quarter</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">⚡ 12.5k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">2</span>
+                            <div class="trending-content">
+                                <h4>Space Agency Announces Mars Colony Timeline</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">🚀 10.2k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">3</span>
+                            <div class="trending-content">
+                                <h4>AI Chatbot Passes Turing Test with 98% Success</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">🤖 9.8k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">4</span>
+                            <div class="trending-content">
+                                <h4>New Social Media Platform Gains 10M Users</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">📱 8.4k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">5</span>
+                            <div class="trending-content">
+                                <h4>Breakthrough in Cancer Treatment Shows 95% Efficacy</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">💊 7.9k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">6</span>
+                            <div class="trending-content">
+                                <h4>Virtual Reality Gaming Market Doubles in Value</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">🎮 7.1k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">7</span>
+                            <div class="trending-content">
+                                <h4>Major Tech Company Unveils Holographic Display</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">✨ 6.5k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">8</span>
+                            <div class="trending-content">
+                                <h4>Major Tech Company Unveils Holographic Display</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">✨ 6.5k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <span class="trending-number">9</span>
+                            <div class="trending-content">
+                                <h4>Major Tech Company Unveils Holographic Display</h4>
+                                <div class="meta-info">
+                                    <span class="view-count">✨ 6.5k views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>NewsMinute</h3>
+                    <p style="color: #999;">Your trusted source for breaking news and in-depth analysis from around the world.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Advertise</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Politics</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Sports</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Editorial Guidelines</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 NewsMinute. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit'
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
